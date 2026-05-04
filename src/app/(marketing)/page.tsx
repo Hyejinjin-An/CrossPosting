@@ -34,7 +34,7 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
-                <Link href="/docs/architecture">
+                <Link href="#workflow">
                   <BookOpen className="mr-2 h-4 w-4" />
                   제품 설계 보기
                 </Link>
@@ -46,7 +46,7 @@ export default function HomePage() {
         <Separator />
 
         {/* Product Preview */}
-        <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+        <section id="workflow" className="mx-auto max-w-5xl scroll-mt-20 px-4 py-14 sm:px-6">
           <h2 className="mb-2 text-sm font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))]">
             워크플로우 미리보기
           </h2>
