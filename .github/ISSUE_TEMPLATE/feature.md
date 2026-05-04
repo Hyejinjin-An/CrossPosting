@@ -1,28 +1,25 @@
 ---
 name: Feature
-about: 기능 구현 작업
-title: ""
+about: 기능 구현 또는 개선
+title: "[Feature] "
 labels: feature
 assignees: ""
 ---
 
+# Feature
+
 ## Goal
-
-
-## Background
 
 
 ## Scope
 
+- 
 
-## Acceptance Criteria
+## Done When
 
-- [ ]
+- [ ] 
 
-## References
+## Context
 
--
-
-## Notes
-
--
+- Related docs:
+- Notes:
