@@ -56,7 +56,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {/* Step 1: Source */}
-            <div className="rounded-lg border border-[hsl(var(--border))] bg-white p-5">
+            <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5">
               <div className="mb-3 flex items-center gap-2">
                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(var(--muted))] text-xs font-bold text-[hsl(var(--muted-foreground))]">
                   1
@@ -78,7 +78,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 2: Channel drafts */}
-            <div className="rounded-lg border border-[hsl(var(--border))] bg-white p-5">
+            <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5">
               <div className="mb-3 flex items-center gap-2">
                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(var(--muted))] text-xs font-bold text-[hsl(var(--muted-foreground))]">
                   2
@@ -125,7 +125,7 @@ export default function HomePage() {
             </div>
 
             {/* Step 3: Publish status */}
-            <div className="rounded-lg border border-[hsl(var(--border))] bg-white p-5">
+            <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5">
               <div className="mb-3 flex items-center gap-2">
                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(var(--muted))] text-xs font-bold text-[hsl(var(--muted-foreground))]">
                   3
@@ -207,7 +207,7 @@ function TrustCard({
   description: string;
 }) {
   return (
-    <div className="rounded-lg border border-[hsl(var(--border))] bg-white p-5">
+    <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5">
       <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-md bg-[#1FBF9A]/10 text-[#1FBF9A]">
         {icon}
       </div>
