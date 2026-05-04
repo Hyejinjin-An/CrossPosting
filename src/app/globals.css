@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 160 16% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 16% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 16% 11%;
+    --primary: 166 72% 43%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 160 8% 96%;
+    --secondary-foreground: 160 16% 25%;
+    --muted: 160 8% 96%;
+    --muted-foreground: 160 8% 46%;
+    --accent: 160 8% 96%;
+    --accent-foreground: 160 16% 11%;
+    --destructive: 8 80% 66%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 160 8% 90%;
+    --input: 160 8% 90%;
+    --ring: 166 72% 43%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 160 16% 8%;
+    --foreground: 0 0% 97%;
+    --card: 160 16% 10%;
+    --card-foreground: 0 0% 97%;
+    --popover: 160 16% 10%;
+    --popover-foreground: 0 0% 97%;
+    --primary: 166 72% 43%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 160 12% 16%;
+    --secondary-foreground: 0 0% 97%;
+    --muted: 160 12% 16%;
+    --muted-foreground: 160 8% 58%;
+    --accent: 160 12% 16%;
+    --accent-foreground: 0 0% 97%;
+    --destructive: 8 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 160 12% 20%;
+    --input: 160 12% 20%;
+    --ring: 166 72% 43%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+}

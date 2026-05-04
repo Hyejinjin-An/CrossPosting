@@ -1,0 +1,11 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">SNS Commit logo</title>
+  <desc id="desc">A rounded square app logo with connected social post cards and a commit check mark.</desc>
+  <rect width="512" height="512" rx="112" fill="#10201D"/>
+  <path d="M152 156C152 135.013 169.013 118 190 118H322C342.987 118 360 135.013 360 156V288C360 308.987 342.987 326 322 326H190C169.013 326 152 308.987 152 288V156Z" fill="#F7FAF7"/>
+  <path d="M191 184C191 172.954 199.954 164 211 164H301C312.046 164 321 172.954 321 184V194C321 205.046 312.046 214 301 214H211C199.954 214 191 205.046 191 194V184Z" fill="#1FBF9A"/>
+  <path d="M191 248C191 238.059 199.059 230 209 230H303C312.941 230 321 238.059 321 248V260C321 269.941 312.941 278 303 278H209C199.059 278 191 269.941 191 260V248Z" fill="#FF6B57"/>
+  <path d="M132 226H95C82.85 226 73 235.85 73 248V340C73 352.15 82.85 362 95 362H187C199.15 362 209 352.15 209 340V346" stroke="#9BE7D3" stroke-width="28" stroke-linecap="round"/>
+  <path d="M380 286H417C429.15 286 439 276.15 439 264V172C439 159.85 429.15 150 417 150H325C312.85 150 303 159.85 303 172V166" stroke="#FFD166" stroke-width="28" stroke-linecap="round"/>
+  <path d="M184 358L232.5 406.5L338 301" stroke="#F7FAF7" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
