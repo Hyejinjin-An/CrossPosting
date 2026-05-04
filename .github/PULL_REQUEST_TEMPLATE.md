@@ -1,24 +1,24 @@
 # PR
 
-## Why
+## 왜 필요한가
 
 - 
 
-## What Changed
+## 변경 내용
 
 - 
 
-## Check
+## 확인
 
 - [ ] `npm run lint`
 - [ ] `npm run build`
-- [ ] UI checked on mobile width, if UI changed
+- [ ] UI 변경 시 모바일 폭에서 확인
 
-## Links
+## 연결
 
 - Closes #
 
-## Notes
+## 참고
 
-- Risk:
-- Screenshot:
+- 리스크:
+- 스크린샷:

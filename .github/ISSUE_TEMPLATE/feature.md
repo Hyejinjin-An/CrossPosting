@@ -1,25 +1,25 @@
 ---
 name: Feature
 about: 기능 구현 또는 개선
-title: "[Feature] "
+title: "[기능] "
 labels: feature
 assignees: ""
 ---
 
-# Feature
+# 기능
 
-## Goal
+## 목표
 
 
-## Scope
+## 범위
 
 - 
 
-## Done When
+## 완료 기준
 
 - [ ] 
 
-## Context
+## 참고
 
-- Related docs:
-- Notes:
+- 관련 문서:
+- 메모:

@@ -29,7 +29,8 @@
 - 브랜치명은 `feature/issue-번호-짧은-설명` 형식을 사용합니다.
 - 커밋 메시지는 작업 의도가 보이도록 작성합니다.
 - 기능 PR의 base branch는 `dev`입니다.
-- PR 본문에는 관련 이슈, 변경 내용, 테스트 결과, 남은 TODO를 적습니다.
+- PR 제목과 본문은 한글을 기본으로 작성합니다. 커밋 메시지는 Conventional Commit 형식을 유지해도 됩니다.
+- PR 본문에는 관련 이슈, 변경 내용, 테스트 결과, 남은 TODO를 한글로 적습니다.
 - PR이 승인되고 merge된 뒤에는 원격/로컬 기능 브랜치를 정리합니다.
 - `.env.local`, `.next`, `node_modules`, `*.tsbuildinfo`는 커밋하지 않습니다.
 - 큰 문서 전체를 매번 읽지 말고, 필요한 문서와 변경 파일만 읽습니다.
@@ -51,7 +52,8 @@
 - 최신 dev에서 feature/issue-<번호>-<설명> 브랜치를 만들 것.
 - 변경 범위를 이슈에 맞게 작게 유지할 것.
 - 작업 후 npm run lint, npm run build를 실행하고 결과를 보고할 것.
-- PR은 dev를 base branch로 만들고, PR 본문에 Closes #<번호>를 포함할 것.
+- PR은 dev를 base branch로 만들고, 제목/본문은 한글로 작성할 것.
+- PR 본문에 Closes #<번호>를 포함할 것.
 ```
 
 ## 첫 작업 요약

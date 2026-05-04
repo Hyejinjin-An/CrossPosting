@@ -1,19 +1,19 @@
 ---
 name: Review
 about: 코드리뷰, 품질 점검, 리스크 확인
-title: "[Review] "
+title: "[리뷰] "
 labels: review
 assignees: ""
 ---
 
-# Review
+# 리뷰
 
-## Target
+## 대상
 
 - PR:
-- Branch:
+- 브랜치:
 
-## Focus
+## 확인할 점
 
 - [ ] Correctness
 - [ ] Security
@@ -21,10 +21,10 @@ assignees: ""
 - [ ] Accessibility
 - [ ] Tests
 
-## Findings
+## 발견 사항
 
 - 
 
-## Follow-up
+## 후속 작업
 
 - 
