@@ -1,25 +1,24 @@
-## Summary
+# PR
 
--
+## Why
 
-## Related Issue
+- 
 
-Closes #
+## What Changed
 
-## Changes
+- 
 
--
-
-## Verification
+## Check
 
 - [ ] `npm run lint`
 - [ ] `npm run build`
-- [ ] Mobile layout checked at 390px width
+- [ ] UI checked on mobile width, if UI changed
 
-## Risk Notes
+## Links
 
--
+- Closes #
 
-## Screenshots
+## Notes
 
--
+- Risk:
+- Screenshot:

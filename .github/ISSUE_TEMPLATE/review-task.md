@@ -1,15 +1,19 @@
 ---
-name: Review Task
-about: 코드리뷰 또는 품질 점검 작업
-title: ""
+name: Review
+about: 코드리뷰, 품질 점검, 리스크 확인
+title: "[Review] "
 labels: review
 assignees: ""
 ---
 
-## Review Target
+# Review
 
+## Target
 
-## Focus Areas
+- PR:
+- Branch:
+
+## Focus
 
 - [ ] Correctness
 - [ ] Security
@@ -19,8 +23,8 @@ assignees: ""
 
 ## Findings
 
--
+- 
 
-## Follow-up Issues
+## Follow-up
 
--
+- 
