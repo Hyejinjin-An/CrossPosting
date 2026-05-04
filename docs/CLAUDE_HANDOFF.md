@@ -13,6 +13,7 @@
   - `docs/ARCHITECTURE.md`
   - `docs/DEVELOPER_KICKOFF.md`
   - `docs/RISK_REGISTER.md`
+  - `docs/DAY1_INITIAL_SETUP.md`
 
 ## 역할 분담
 

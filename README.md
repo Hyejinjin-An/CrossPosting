@@ -88,3 +88,4 @@ SENTRY_DSN=
 - [Roadmap](docs/ROADMAP.md)
 - [Developer Kickoff](docs/DEVELOPER_KICKOFF.md)
 - [Claude Handoff](docs/CLAUDE_HANDOFF.md)
+- [Day 1 Initial Setup](docs/DAY1_INITIAL_SETUP.md)
