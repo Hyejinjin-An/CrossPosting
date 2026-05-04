@@ -1,6 +1,6 @@
 <svg width="920" height="220" viewBox="0 0 920 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">SNS Commit horizontal logo</title>
-  <desc id="desc">SNS Commit wordmark with app mark.</desc>
+  <title id="title">CrossPosting horizontal logo</title>
+  <desc id="desc">CrossPosting wordmark with app mark.</desc>
   <rect x="24" y="24" width="172" height="172" rx="42" fill="#10201D"/>
   <path d="M72 70C72 59.507 80.507 51 91 51H129C139.493 51 148 59.507 148 70V118C148 128.493 139.493 137 129 137H91C80.507 137 72 128.493 72 118V70Z" fill="#F7FAF7"/>
   <path d="M90 82C90 76.477 94.477 72 100 72H120C125.523 72 130 76.477 130 82C130 87.523 125.523 92 120 92H100C94.477 92 90 87.523 90 82Z" fill="#1FBF9A"/>
@@ -8,6 +8,6 @@
   <path d="M61 99H48C42.477 99 38 103.477 38 109V145C38 150.523 42.477 155 48 155H84" stroke="#9BE7D3" stroke-width="12" stroke-linecap="round"/>
   <path d="M159 99H172C177.523 99 182 94.523 182 89V53C182 47.477 177.523 43 172 43H136" stroke="#FFD166" stroke-width="12" stroke-linecap="round"/>
   <path d="M80 154L101 175L147 129" stroke="#F7FAF7" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="236" y="113" fill="#10201D" font-family="Inter, Pretendard, Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="0">SNS Commit</text>
+  <text x="236" y="113" fill="#10201D" font-family="Inter, Pretendard, Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="0">CrossPosting</text>
   <text x="240" y="154" fill="#52615D" font-family="Inter, Pretendard, Arial, sans-serif" font-size="24" font-weight="500" letter-spacing="0">Cross-posting workspace</text>
 </svg>

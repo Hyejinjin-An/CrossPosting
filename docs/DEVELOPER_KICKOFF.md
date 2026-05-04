@@ -119,7 +119,7 @@ public/
 ### 화면 구조
 
 - 상단 내비게이션
-  - 좌측: SNS Commit 로고
+  - 좌측: CrossPosting 로고
   - 우측: 로그인, 대시보드 이동 버튼
 - Hero 영역
   - H1: `SNS 게시물, 다시 쓰는 시간을 줄이세요`
@@ -167,7 +167,7 @@ public/
 ## 9. Claude에게 줄 작업 명령 예시
 
 ```text
-너는 이 프로젝트의 시니어 개발자야. docs/PRD.md, docs/ARCHITECTURE.md, docs/DEVELOPER_KICKOFF.md를 기준으로 Next.js + TypeScript + Tailwind + shadcn/ui 초기 환경을 세팅하고 첫 메인 화면을 구현해줘.
+너는 CrossPosting 프로젝트의 시니어 개발자야. docs/PRD.md, docs/ARCHITECTURE.md, docs/DEVELOPER_KICKOFF.md를 기준으로 Next.js + TypeScript + Tailwind + shadcn/ui 초기 환경을 세팅하고 첫 메인 화면을 구현해줘.
 
 중요 제약:
 - 플랫폼 약관 우회 자동화처럼 보이는 표현은 UI에 넣지 말 것.

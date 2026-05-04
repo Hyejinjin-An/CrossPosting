@@ -19,7 +19,7 @@ export default function HomePage() {
               크로스포스팅 워크스페이스
             </Badge>
             <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-[hsl(var(--foreground))] sm:text-4xl">
-              SNS 게시물,<br />
+              CrossPosting으로<br />
               다시 쓰는 시간을 줄이세요
             </h1>
             <p className="mb-8 text-base leading-relaxed text-[hsl(var(--muted-foreground))] sm:text-lg">

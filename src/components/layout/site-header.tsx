@@ -9,13 +9,13 @@ export function SiteHeader() {
         <Link href="/" className="flex items-center gap-2.5">
           <Image
             src="/brand/logo.svg"
-            alt="SNS Commit"
+            alt="CrossPosting"
             width={32}
             height={32}
             priority
           />
           <span className="text-[15px] font-bold tracking-tight text-[hsl(var(--foreground))]">
-            SNS Commit
+            CrossPosting
           </span>
         </Link>
 

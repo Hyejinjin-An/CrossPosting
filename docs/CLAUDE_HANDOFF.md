@@ -4,7 +4,7 @@
 
 ## 현재 프로젝트 상태
 
-- Product: SNS Commit
+- Product: CrossPosting
 - Stack: Next.js App Router, React, TypeScript, Tailwind CSS, shadcn/ui, Supabase 예정
 - Current milestone: 초기 프로젝트 세팅 및 메인 화면
 - Main route: `/`
@@ -32,7 +32,7 @@
 ## Claude에게 매번 전달할 최소 컨텍스트
 
 ```text
-너는 SNS Commit의 시니어 개발자야.
+너는 CrossPosting의 시니어 개발자야.
 이번 작업은 GitHub Issue #<번호> 기준으로 진행해줘.
 
 먼저 읽을 파일:
@@ -56,7 +56,7 @@
 - Next.js 프로젝트 생성
 - Tailwind CSS 설정
 - shadcn/ui 기본 컴포넌트 추가
-- SNS Commit 로고 적용
+- CrossPosting 로고 적용
 - `/` 메인 화면 구현
 - `/dashboard`, `/auth/login`, `/auth/callback` 기본 라우트 생성
 

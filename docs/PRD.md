@@ -2,7 +2,7 @@
 
 ## 제품명
 
-SNS Commit
+CrossPosting
 
 ## 한 줄 설명
 

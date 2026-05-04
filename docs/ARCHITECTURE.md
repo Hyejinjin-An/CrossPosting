@@ -2,7 +2,7 @@
 
 ## 시스템 개요
 
-SNS Commit은 Next.js App Router를 중심으로 UI, 서버 액션, API 라우트를 구성하고 Supabase를 인증, 데이터베이스, 파일 저장소로 사용합니다. 외부 SNS API와 통신하는 코드는 서버 전용 모듈에 배치합니다.
+CrossPosting은 Next.js App Router를 중심으로 UI, 서버 액션, API 라우트를 구성하고 Supabase를 인증, 데이터베이스, 파일 저장소로 사용합니다. 외부 SNS API와 통신하는 코드는 서버 전용 모듈에 배치합니다.
 
 ```mermaid
 flowchart TB
