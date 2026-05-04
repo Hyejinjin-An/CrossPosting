@@ -3,9 +3,12 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+.pnpm-store/
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
@@ -16,15 +19,21 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
+*.log
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # local env files
 .env*.local
+.env
+.env.development
+.env.production
 
 # vercel
 .vercel
@@ -32,3 +41,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+
+# Codex local state
+.codex/
+codex.local.*
+
+# local runtime/cache
+.turbo/
+.cache/
+tmp/
+temp/
