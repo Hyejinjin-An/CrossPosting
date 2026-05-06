@@ -29,6 +29,19 @@ If a suitable issue already exists:
 2. Confirm the implementation scope matches the issue.
 3. Do not silently add unrelated work.
 
+## Compound Learnings Before Development
+
+Before planning or coding, Claude must check whether there are relevant prior learnings in `docs/solutions/`.
+
+Use this lightweight process:
+
+1. Search `docs/solutions/` for terms related to the issue, affected files, framework, feature area, and previous review findings.
+2. Read any matching solution notes before implementation.
+3. Apply the prevention guidance from those notes to the plan and verification checklist.
+4. If no matching notes exist, proceed and mention that no relevant Compound learning was found in the handoff.
+
+The goal is to avoid repeating mistakes from previous execution-review cycles.
+
 ## Branch Workflow
 
 For implementation work:
@@ -49,6 +62,7 @@ Before saying development is complete, Claude must:
 5. Commit the completed changes.
 6. Push the branch.
 7. Open a GitHub PR against `dev`.
+8. Include any relevant `docs/solutions/` learnings consulted in the PR body or handoff.
 
 The PR must include:
 
@@ -67,5 +81,6 @@ After opening the PR, Claude must share with Codex:
 - Verification commands and results
 - Anything not fully testable locally
 - Any required operator setup after merge
+- Which `docs/solutions/` learnings were consulted, or that none were relevant
 
 If the PR depends on external configuration, such as Supabase Dashboard OAuth provider setup, state that clearly in the PR body and handoff.

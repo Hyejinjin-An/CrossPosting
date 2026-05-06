@@ -25,6 +25,8 @@ If the task involves both roles, read both files. These role rules are part of t
   - `docs/ROADMAP.md`
   - `docs/RISK_REGISTER.md`
   - `docs/CLAUDE_HANDOFF.md`
+- Durable learning docs:
+  - `docs/solutions/` stores Compound Engineering notes from completed execution-review cycles.
 
 ## Commands
 
@@ -58,6 +60,7 @@ Supabase Dashboard provider setup, OAuth app secrets, and production credentials
 - Start feature work from the latest `dev`.
 - Keep changes scoped to the GitHub issue.
 - Link PRs to their issue with `Closes #<issue-number>`.
+- Check relevant `docs/solutions/` learnings before repeating similar implementation or review work.
 - Do not implement platform-policy workarounds or automation that bypasses official platform terms.
 - Treat KakaoStory as manual posting assistance only unless official API support is explicitly confirmed.
 - Use official APIs for Instagram automation.

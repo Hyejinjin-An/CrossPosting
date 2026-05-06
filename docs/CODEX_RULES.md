@@ -23,8 +23,13 @@ When Codex performs a PM PR review:
    - `npm run lint`
    - `npm run build`
    - Any focused manual route or UI checks that fit the PR
-5. Post the review result as a GitHub PR comment.
-6. Tell the user that the PR comment was posted and summarize the result.
+5. After the Superpowers verification/review step is complete, run the Compound Engineering knowledge capture step:
+   - Use `ce-compound` for the completed review/implementation cycle.
+   - Capture mistakes, false starts, review findings, fixes, verification gaps, and operational lessons while context is fresh.
+   - Store durable learnings under `docs/solutions/` according to the Compound workflow.
+   - If the issue was routine and produced no reusable lesson, record that no compound-worthy learning was found in the user summary.
+6. Post the review result as a GitHub PR comment.
+7. Tell the user that the PR comment was posted, summarize the result, and mention whether a Compound note was created or skipped.
 
 The PR comment should include:
 
@@ -49,4 +54,14 @@ When reviewing Claude's work:
 - Check that Claude created or referenced a GitHub issue before coding.
 - Check that the branch is tied to that issue.
 - Check that Claude opened a PR after development.
+- Check whether Claude consulted relevant `docs/solutions/` learnings before or during implementation.
 - If any of those workflow steps are missing, include it in the review result.
+
+## Compound Engineering
+
+Compound Engineering is installed for Codex as `compound-engineering`.
+
+- Use `ce-compound` at the end of meaningful review or implementation cycles.
+- Prefer documenting patterns that could prevent repeat mistakes: scope drift, missing setup notes, weak verification, review-loop failures, or misunderstood architecture.
+- Keep generated learning documents practical and searchable for future Claude and Codex sessions.
+- Future agents should be able to read `docs/solutions/` before similar work and avoid repeating the same mistakes.
