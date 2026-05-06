@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
+  const router = useRouter();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/95 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
@@ -20,11 +25,11 @@ export function SiteHeader() {
         </Link>
 
         <nav className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/auth/login">로그인</Link>
+          <Button variant="ghost" size="sm" onClick={() => router.push("/?modal=login")}>
+            로그인
           </Button>
-          <Button size="sm" asChild>
-            <Link href="/auth/login">대시보드 열기</Link>
+          <Button size="sm" onClick={() => router.push("/?modal=signup")}>
+            시작하기
           </Button>
         </nav>
       </div>

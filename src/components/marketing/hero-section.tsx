@@ -21,7 +21,7 @@ export function HeroSection() {
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Button size="lg" asChild className="w-full sm:w-auto">
-            <Link href="/auth/login">
+            <Link href="/?modal=signup">
               첫 게시물 가져오기
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
