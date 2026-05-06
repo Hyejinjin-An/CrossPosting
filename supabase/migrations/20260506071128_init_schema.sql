@@ -160,12 +160,30 @@ create policy "source_posts_select_own"
 
 create policy "source_posts_insert_own"
   on public.source_posts for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    (
+      social_account_id is null or
+      exists (
+        select 1 from public.social_accounts sa
+        where sa.id = social_account_id and sa.user_id = auth.uid()
+      )
+    )
+  );
 
 create policy "source_posts_update_own"
   on public.source_posts for update
   using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    (
+      social_account_id is null or
+      exists (
+        select 1 from public.social_accounts sa
+        where sa.id = social_account_id and sa.user_id = auth.uid()
+      )
+    )
+  );
 
 create policy "source_posts_delete_own"
   on public.source_posts for delete
@@ -205,7 +223,16 @@ create policy "media_assets_select_own"
 
 create policy "media_assets_insert_own"
   on public.media_assets for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    (
+      source_post_id is null or
+      exists (
+        select 1 from public.source_posts sp
+        where sp.id = source_post_id and sp.user_id = auth.uid()
+      )
+    )
+  );
 
 create policy "media_assets_delete_own"
   on public.media_assets for delete
@@ -241,12 +268,30 @@ create policy "post_draft_sets_select_own"
 
 create policy "post_draft_sets_insert_own"
   on public.post_draft_sets for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    (
+      source_post_id is null or
+      exists (
+        select 1 from public.source_posts sp
+        where sp.id = source_post_id and sp.user_id = auth.uid()
+      )
+    )
+  );
 
 create policy "post_draft_sets_update_own"
   on public.post_draft_sets for update
   using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    (
+      source_post_id is null or
+      exists (
+        select 1 from public.source_posts sp
+        where sp.id = source_post_id and sp.user_id = auth.uid()
+      )
+    )
+  );
 
 create policy "post_draft_sets_delete_own"
   on public.post_draft_sets for delete
@@ -290,12 +335,24 @@ create policy "post_drafts_select_own"
 
 create policy "post_drafts_insert_own"
   on public.post_drafts for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    exists (
+      select 1 from public.post_draft_sets pds
+      where pds.id = draft_set_id and pds.user_id = auth.uid()
+    )
+  );
 
 create policy "post_drafts_update_own"
   on public.post_drafts for update
   using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    exists (
+      select 1 from public.post_draft_sets pds
+      where pds.id = draft_set_id and pds.user_id = auth.uid()
+    )
+  );
 
 create policy "post_drafts_delete_own"
   on public.post_drafts for delete
@@ -334,9 +391,12 @@ create policy "post_draft_media_insert_own"
   on public.post_draft_media for insert
   with check (
     exists (
-      select 1 from public.post_drafts
-      where post_drafts.id = post_draft_media.post_draft_id
-        and post_drafts.user_id = auth.uid()
+      select 1 from public.post_drafts pd
+      where pd.id = post_draft_id and pd.user_id = auth.uid()
+    ) and
+    exists (
+      select 1 from public.media_assets ma
+      where ma.id = media_asset_id and ma.user_id = auth.uid()
     )
   );
 
@@ -344,9 +404,18 @@ create policy "post_draft_media_update_own"
   on public.post_draft_media for update
   using (
     exists (
-      select 1 from public.post_drafts
-      where post_drafts.id = post_draft_media.post_draft_id
-        and post_drafts.user_id = auth.uid()
+      select 1 from public.post_drafts pd
+      where pd.id = post_draft_media.post_draft_id and pd.user_id = auth.uid()
+    )
+  )
+  with check (
+    exists (
+      select 1 from public.post_drafts pd
+      where pd.id = post_draft_media.post_draft_id and pd.user_id = auth.uid()
+    ) and
+    exists (
+      select 1 from public.media_assets ma
+      where ma.id = post_draft_media.media_asset_id and ma.user_id = auth.uid()
     )
   );
 
@@ -401,12 +470,24 @@ create policy "publish_jobs_select_own"
 
 create policy "publish_jobs_insert_own"
   on public.publish_jobs for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    exists (
+      select 1 from public.post_drafts pd
+      where pd.id = post_draft_id and pd.user_id = auth.uid()
+    )
+  );
 
 create policy "publish_jobs_update_own"
   on public.publish_jobs for update
   using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    exists (
+      select 1 from public.post_drafts pd
+      where pd.id = post_draft_id and pd.user_id = auth.uid()
+    )
+  );
 
 create policy "publish_jobs_delete_own"
   on public.publish_jobs for delete
@@ -451,12 +532,24 @@ create policy "manual_publish_tasks_select_own"
 
 create policy "manual_publish_tasks_insert_own"
   on public.manual_publish_tasks for insert
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    exists (
+      select 1 from public.post_drafts pd
+      where pd.id = post_draft_id and pd.user_id = auth.uid()
+    )
+  );
 
 create policy "manual_publish_tasks_update_own"
   on public.manual_publish_tasks for update
   using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
+  with check (
+    auth.uid() = user_id and
+    exists (
+      select 1 from public.post_drafts pd
+      where pd.id = post_draft_id and pd.user_id = auth.uid()
+    )
+  );
 
 create policy "manual_publish_tasks_delete_own"
   on public.manual_publish_tasks for delete
