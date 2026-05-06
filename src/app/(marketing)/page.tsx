@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { HeroSection } from "@/components/marketing/hero-section";
 import { WorkflowSection } from "@/components/marketing/workflow-section";
 import { TrustSection } from "@/components/marketing/trust-section";
+import { AuthModal } from "@/components/auth/auth-modal";
 
 export default function HomePage() {
   return (
@@ -17,6 +19,9 @@ export default function HomePage() {
         <TrustSection />
       </main>
       <SiteFooter />
+      <Suspense>
+        <AuthModal />
+      </Suspense>
     </div>
   );
 }
