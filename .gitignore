@@ -54,7 +54,6 @@ CLAUDE.local.md
 # Codex local state
 .codex/
 codex.local.*
-AGENTS.md
 
 # local runtime/cache
 .turbo/
