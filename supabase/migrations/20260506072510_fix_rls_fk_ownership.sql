@@ -41,9 +41,24 @@ create policy "source_posts_update_own"
 -- media_assets: source_post_id 소유권 검증
 -- ---------------------------------------------------------------------------
 drop policy if exists "media_assets_insert_own" on public.media_assets;
+drop policy if exists "media_assets_update_own" on public.media_assets;
 
 create policy "media_assets_insert_own"
   on public.media_assets for insert
+  with check (
+    auth.uid() = user_id and
+    (
+      source_post_id is null or
+      exists (
+        select 1 from public.source_posts sp
+        where sp.id = source_post_id and sp.user_id = auth.uid()
+      )
+    )
+  );
+
+create policy "media_assets_update_own"
+  on public.media_assets for update
+  using (auth.uid() = user_id)
   with check (
     auth.uid() = user_id and
     (

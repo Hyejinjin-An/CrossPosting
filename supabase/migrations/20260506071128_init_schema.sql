@@ -234,6 +234,20 @@ create policy "media_assets_insert_own"
     )
   );
 
+create policy "media_assets_update_own"
+  on public.media_assets for update
+  using (auth.uid() = user_id)
+  with check (
+    auth.uid() = user_id and
+    (
+      source_post_id is null or
+      exists (
+        select 1 from public.source_posts sp
+        where sp.id = source_post_id and sp.user_id = auth.uid()
+      )
+    )
+  );
+
 create policy "media_assets_delete_own"
   on public.media_assets for delete
   using (auth.uid() = user_id);
