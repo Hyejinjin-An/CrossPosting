@@ -94,7 +94,7 @@ export async function signUpWithEmail(formData: FormData) {
   const password = formData.get("password") as string;
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
     if (error.message.includes("already registered")) {
@@ -103,8 +103,11 @@ export async function signUpWithEmail(formData: FormData) {
     redirect("/?modal=signup&error=signup_failed");
   }
 
-  // enable_confirmations=false(기본)면 즉시 세션이 생성되어 /dashboard로 이동한다.
-  // enable_confirmations=true면 세션 없이 이 redirect가 실행되므로 check_email 메시지를 표시한다.
+  // enable_confirmations=false(기본): signUp()이 session을 함께 반환 → 즉시 로그인
+  // enable_confirmations=true: session이 null → 확인 이메일 안내 표시
+  if (data.session) {
+    redirect("/dashboard");
+  }
   redirect("/?modal=signup&error=check_email");
 }
 
