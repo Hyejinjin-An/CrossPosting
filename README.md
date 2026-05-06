@@ -17,6 +17,26 @@ CrossPosting은 하나의 원본 게시물을 기반으로 채널별 게시 초�
 
 상세 제품 배경과 MVP 범위는 [Product Overview](docs/PRODUCT_OVERVIEW.md)를 참고하세요.
 
+## 구현 현황
+
+| 영역 | 상태 |
+|---|---|
+| 랜딩 페이지 (`/`) | 완료 |
+| Auth 콜백 (`/auth/callback`) | 완료 |
+| 로그인 페이지 (`/auth/login`) | Google OAuth 구현 완료 |
+| 세션 보호 프록시 (`src/proxy.ts`) | 완료 |
+| 대시보드 (`/dashboard`) | Placeholder (로그아웃 버튼 포함) |
+| Supabase Auth — Google OAuth | 완료 (Supabase Dashboard에서 Google Provider 활성화 필요) |
+| Supabase Auth — 이메일 로그인 | 미구현 (Issue #7 범위 밖) |
+| DB 마이그레이션 / RLS | 미구현 |
+| Instagram OAuth | 미구현 |
+| Source Import | 미구현 |
+| Composer | 미구현 |
+| KakaoStory 수동 보조 | 미구현 |
+| Publish Jobs / 상태 추적 | 미구현 |
+
+다음 구현 순서와 세부 가이드는 [Claude Handoff](docs/CLAUDE_HANDOFF.md)를 참고하세요.
+
 ## Tech Stack
 
 - Next.js App Router
@@ -42,6 +62,7 @@ npm run dev
 npm run lint
 npm run build
 npm run format
+npm run types   # Supabase 스키마 → TypeScript 타입 재생성
 ```
 
 ## Environment
