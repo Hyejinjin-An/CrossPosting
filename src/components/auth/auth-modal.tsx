@@ -99,19 +99,6 @@ function LoginForm() {
 
   return (
     <div className="space-y-4">
-      <form action={signInWithGoogle}>
-        <Button type="submit" variant="outline" className="w-full gap-2.5">
-          <GoogleIcon />
-          Google로 계속하기
-        </Button>
-      </form>
-
-      <div className="relative flex items-center gap-3">
-        <div className="h-px flex-1 bg-border" />
-        <span className="text-[11px] text-muted-foreground">또는</span>
-        <div className="h-px flex-1 bg-border" />
-      </div>
-
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-3">
         <div className="space-y-1">
           <Label htmlFor="login-email" className="text-xs">이메일</Label>
@@ -143,6 +130,19 @@ function LoginForm() {
           {isSubmitting ? "처리 중..." : "로그인"}
         </Button>
       </form>
+
+      <div className="relative flex items-center gap-3">
+        <div className="h-px flex-1 bg-border" />
+        <span className="text-[11px] text-muted-foreground">또는</span>
+        <div className="h-px flex-1 bg-border" />
+      </div>
+
+      <form action={signInWithGoogle}>
+        <Button type="submit" variant="outline" className="w-full gap-2.5">
+          <GoogleIcon />
+          Google로 계속하기
+        </Button>
+      </form>
     </div>
   );
 }
@@ -172,19 +172,6 @@ function SignupForm() {
 
   return (
     <div className="space-y-4">
-      <form action={signInWithGoogle}>
-        <Button type="submit" variant="outline" className="w-full gap-2.5">
-          <GoogleIcon />
-          Google로 시작하기
-        </Button>
-      </form>
-
-      <div className="relative flex items-center gap-3">
-        <div className="h-px flex-1 bg-border" />
-        <span className="text-[11px] text-muted-foreground">또는 이메일로 가입</span>
-        <div className="h-px flex-1 bg-border" />
-      </div>
-
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-3">
         {/* 이름 + 성별 */}
         <div className="flex gap-2">
