@@ -54,6 +54,39 @@ Copy `.env.example` to `.env.local` and fill in the required values:
 
 Supabase Dashboard provider setup, OAuth app secrets, and production credentials are operator-managed and should not be committed.
 
+## Mandatory Code Comments (모든 에이전트 필수)
+
+코드를 작성하거나 수정할 때 주석은 **선택이 아니라 필수**다. 구현 완료 전 반드시 확인한다.
+
+### 모든 함수·컴포넌트에 JSDoc 주석 작성
+
+```ts
+/** Next.js Server Component — 대시보드 홈 (통계 실 DB 조회, 기능 미리보기) */
+export default async function DashboardPage() { ... }
+
+/** Next.js Client Component — 사이드바 (usePathname으로 활성 메뉴 표시) */
+export function DashboardSidebar({ displayName }: Props) { ... }
+
+/** Supabase Server Action — 이메일/패스워드 로그인, 실패 시 error 반환 */
+export async function signIn(formData: FormData) { ... }
+```
+
+### JSDoc에 반드시 포함할 항목
+
+1. **선언 타입**: `Next.js Server Component`, `Client Component`, `Server Action`, `Route Handler`, `React Hook`, `Utility` 등
+2. **한 줄 요약**: 이 함수/컴포넌트가 하는 핵심 일
+3. **파라미터**: 이름만으로 의미가 불명확한 경우
+4. **반환값**: 복잡한 구조일 경우
+
+### 비자명 로직에 인라인 주석 필수
+
+```ts
+// profiles.display_name 우선, 없으면 Google OAuth user_metadata, 없으면 이메일 앞부분
+const displayName = profile?.display_name ?? user?.user_metadata?.full_name ?? user?.email?.split("@")[0];
+```
+
+단순 getter여도 선언 타입 맥락 JSDoc은 **항상** 작성한다.
+
 ## Shared Workflow Rules
 
 - Do not commit directly to `main`.

@@ -65,3 +65,6 @@ temp/
 supabase/.branches/
 supabase/.temp/
 supabase/functions/.cache/
+
+# Internal docs (Claude/Codex 작업 문서 — 로컬 전용)
+docs/
