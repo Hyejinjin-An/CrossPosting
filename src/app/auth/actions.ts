@@ -98,14 +98,24 @@ export async function signUpWithEmail(formData: FormData) {
     redirect("/?modal=signup&error=signup_failed");
   }
 
-  // handle_new_user 트리거가 profiles 행을 생성한 후 추가 필드를 업데이트한다.
-  // admin 클라이언트를 사용해 RLS를 우회한다.
-  if (data.user) {
-    const admin = createAdminClient();
-    await admin
-      .from("profiles")
-      .update({ display_name: displayName, gender, phone })
-      .eq("id", data.user.id);
+  // 이메일 확인 활성화 환경에서 중복 이메일 가입 시 Supabase는 에러 없이 HTTP 200을 반환하되
+  // identities 배열이 비어있다. 이 경우를 already_registered로 처리한다.
+  if (!data.user || data.user.identities?.length === 0) {
+    redirect("/?modal=signup&error=already_registered");
+  }
+
+  // handle_new_user 트리거가 생성한 profiles 행에 추가 필드를 기록한다.
+  // upsert를 사용해 트리거 미실행 등 예외 상황에서도 행이 보장되도록 한다.
+  const admin = createAdminClient();
+  const { error: profileError } = await admin
+    .from("profiles")
+    .upsert(
+      { id: data.user.id, display_name: displayName, gender, phone },
+      { onConflict: "id" }
+    );
+
+  if (profileError) {
+    console.error("[signUpWithEmail] profile upsert failed:", profileError.message);
   }
 
   if (data.session) {
