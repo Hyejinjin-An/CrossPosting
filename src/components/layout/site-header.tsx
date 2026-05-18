@@ -25,12 +25,9 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-2">
           <ThemeToggle />
-          <Button variant="ghost" size="sm" onClick={() => router.push("/?modal=login")}>
-            로그인
-          </Button>
-          <Button size="sm" onClick={() => router.push("/?modal=signup")}>
+          <Button size="sm" onClick={() => router.push("/?modal=login")}>
             시작하기
           </Button>
         </nav>
