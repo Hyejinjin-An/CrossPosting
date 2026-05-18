@@ -9,12 +9,12 @@ interface TrustCardProps {
 
 function TrustCard({ icon, title, description }: TrustCardProps) {
   return (
-    <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5">
-      <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-md bg-[#1FBF9A]/10 text-[#1FBF9A]">
+    <div className="rounded-lg border border-border bg-card p-5">
+      <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
         {icon}
       </div>
-      <h3 className="mb-1.5 text-sm font-semibold text-[hsl(var(--foreground))]">{title}</h3>
-      <p className="text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">{description}</p>
+      <h3 className="mb-1.5 text-sm font-semibold text-foreground">{title}</h3>
+      <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
     </div>
   );
 }

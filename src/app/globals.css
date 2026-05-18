@@ -1,50 +1,75 @@
 @import "tailwindcss";
 
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 160 16% 11%;
+    --foreground: 20 10% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 160 16% 11%;
+    --card-foreground: 20 10% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 160 16% 11%;
-    --primary: 166 72% 43%;
+    --popover-foreground: 20 10% 10%;
+    --primary: 25 95% 53%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 160 8% 96%;
-    --secondary-foreground: 160 16% 25%;
-    --muted: 160 8% 96%;
-    --muted-foreground: 160 8% 46%;
-    --accent: 160 8% 96%;
-    --accent-foreground: 160 16% 11%;
-    --destructive: 8 80% 66%;
+    --secondary: 30 10% 96%;
+    --secondary-foreground: 20 10% 25%;
+    --muted: 30 10% 96%;
+    --muted-foreground: 25 8% 46%;
+    --accent: 30 10% 96%;
+    --accent-foreground: 20 10% 10%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 160 8% 90%;
-    --input: 160 8% 90%;
-    --ring: 166 72% 43%;
+    --border: 30 8% 90%;
+    --input: 30 8% 90%;
+    --ring: 25 95% 53%;
     --radius: 0.5rem;
   }
 
   .dark {
     color-scheme: dark;
-    --background: 160 16% 8%;
+    --background: 20 14% 8%;
     --foreground: 0 0% 97%;
-    --card: 160 16% 10%;
+    --card: 20 14% 10%;
     --card-foreground: 0 0% 97%;
-    --popover: 160 16% 10%;
+    --popover: 20 14% 10%;
     --popover-foreground: 0 0% 97%;
-    --primary: 166 72% 43%;
+    --primary: 25 95% 58%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 160 12% 16%;
+    --secondary: 20 12% 16%;
     --secondary-foreground: 0 0% 97%;
-    --muted: 160 12% 16%;
-    --muted-foreground: 160 8% 58%;
-    --accent: 160 12% 16%;
+    --muted: 20 12% 16%;
+    --muted-foreground: 25 8% 58%;
+    --accent: 20 12% 16%;
     --accent-foreground: 0 0% 97%;
-    --destructive: 8 80% 60%;
+    --destructive: 0 84% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 160 12% 20%;
-    --input: 160 12% 20%;
-    --ring: 166 72% 43%;
+    --border: 20 12% 20%;
+    --input: 20 12% 20%;
+    --ring: 25 95% 58%;
   }
 
   * {

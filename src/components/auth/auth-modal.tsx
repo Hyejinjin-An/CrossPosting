@@ -1,23 +1,11 @@
-/**
- * AuthModal — 로그인 / 회원가입 모달 (React Client Component)
- *
- * URL 파라미터(?modal=login | ?modal=signup)를 기반으로 모달의 열림 상태를 제어한다.
- * 서버가 아닌 클라이언트에서 URL을 읽고 Dialog 상태를 동기화하므로 "use client"가 필요하다.
- *
- * 모달 트리거 방식:
- * - SiteHeader 버튼: router.push("/?modal=login") 또는 "/?modal=signup"
- * - HeroSection CTA: <Link href="/?modal=signup">
- * - proxy(Middleware): 미인증 /dashboard → /?modal=login 리다이렉트
- * - /auth/login 페이지: /?modal=login 리다이렉트로 단순화됨
- *
- * 에러 표시: ?error= 파라미터로 Server Action 실패 결과를 인라인으로 표시한다.
- */
-
 "use client";
 
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import {
   Dialog,
   DialogContent,
@@ -28,13 +16,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import {
   signInWithGoogle,
   signInWithEmail,
   signUpWithEmail,
 } from "@/app/auth/actions";
 
-/** Server Action 실패 시 ?error= 파라미터 값에 대응하는 한국어 메시지 */
 const ERROR_MESSAGES: Record<string, string> = {
   oauth_failed: "Google 로그인 중 오류가 발생했습니다. 다시 시도해 주세요.",
   invalid_credentials: "이메일 또는 비밀번호가 올바르지 않습니다.",
@@ -44,18 +32,249 @@ const ERROR_MESSAGES: Record<string, string> = {
   default: "오류가 발생했습니다. 다시 시도해 주세요.",
 };
 
-/** 에러가 아닌 정보성 메시지 키 목록 (파란색 스타일로 표시) */
 const INFO_ERRORS = new Set(["check_email"]);
 
-/**
- * 로그인/회원가입 모달 컴포넌트 (React Client Component).
- *
- * URL의 ?modal 파라미터를 감지해 자동으로 열리고, 닫힐 때 URL에서 파라미터를 제거한다.
- * Tabs 상태(tab)는 로컬 state로 관리되며, modalParam 변경 시 Dialog key로 초기화된다.
- * (useEffect 없이 URL → 상태 동기화를 달성해 cascading render를 방지한다)
- *
- * useSearchParams()를 사용하므로 부모에서 반드시 <Suspense>로 감싸야 한다.
- */
+// ── Zod 스키마 ──────────────────────────────────────────────────────────────
+
+const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, "이메일을 입력해 주세요")
+    .email("올바른 이메일 형식이 아닙니다"),
+  password: z.string().min(1, "비밀번호를 입력해 주세요"),
+});
+
+const signupSchema = z.object({
+  display_name: z
+    .string()
+    .min(1, "이름을 입력해 주세요")
+    .max(50, "이름은 50자 이하로 입력해 주세요"),
+  gender: z
+    .string()
+    .min(1, "성별을 선택해 주세요")
+    .refine(
+      (v) => ["male", "female", "other"].includes(v),
+      "올바른 성별을 선택해 주세요"
+    ),
+  phone: z
+    .string()
+    .min(1, "전화번호를 입력해 주세요")
+    .max(11, "전화번호는 11자리까지 입력 가능합니다")
+    .regex(/^01[016789]\d{7,8}$/, "올바른 휴대폰 번호를 입력해 주세요 (예: 01012345678)"),
+  email: z
+    .string()
+    .min(1, "이메일을 입력해 주세요")
+    .email("올바른 이메일 형식이 아닙니다"),
+  password: z.string().min(8, "비밀번호는 8자 이상이어야 합니다"),
+});
+
+type LoginData = z.infer<typeof loginSchema>;
+type SignupData = z.infer<typeof signupSchema>;
+
+// ── 필드 에러 메시지 ──────────────────────────────────────────────────────────
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return <p className="mt-1 text-[11px] text-destructive">{message}</p>;
+}
+
+// ── 로그인 폼 ─────────────────────────────────────────────────────────────────
+
+function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  });
+
+  async function onSubmit(data: LoginData) {
+    const fd = new FormData();
+    fd.set("email", data.email.trim().toLowerCase());
+    fd.set("password", data.password);
+    await signInWithEmail(fd);
+  }
+
+  return (
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-3">
+        <div className="space-y-1">
+          <Label htmlFor="login-email" className="text-xs">이메일</Label>
+          <Input
+            id="login-email"
+            type="email"
+            placeholder="you@example.com"
+            autoComplete="email"
+            className={cn("h-8 text-sm", errors.email && "border-destructive")}
+            {...register("email")}
+          />
+          <FieldError message={errors.email?.message} />
+        </div>
+
+        <div className="space-y-1">
+          <Label htmlFor="login-password" className="text-xs">비밀번호</Label>
+          <Input
+            id="login-password"
+            type="password"
+            placeholder="••••••••"
+            autoComplete="current-password"
+            className={cn("h-8 text-sm", errors.password && "border-destructive")}
+            {...register("password")}
+          />
+          <FieldError message={errors.password?.message} />
+        </div>
+
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "처리 중..." : "로그인"}
+        </Button>
+      </form>
+
+      <div className="relative flex items-center gap-3">
+        <div className="h-px flex-1 bg-border" />
+        <span className="text-[11px] text-muted-foreground">또는</span>
+        <div className="h-px flex-1 bg-border" />
+      </div>
+
+      <form action={signInWithGoogle}>
+        <Button type="submit" variant="outline" className="w-full gap-2.5">
+          <GoogleIcon />
+          Google로 계속하기
+        </Button>
+      </form>
+    </div>
+  );
+}
+
+// ── 회원가입 폼 ───────────────────────────────────────────────────────────────
+
+function SignupForm() {
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignupData>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: { display_name: "", gender: "", phone: "", email: "", password: "" },
+  });
+
+  async function onSubmit(data: SignupData) {
+    const fd = new FormData();
+    fd.set("display_name", data.display_name.trim());
+    fd.set("gender", data.gender);
+    fd.set("phone", data.phone);
+    fd.set("email", data.email.trim().toLowerCase());
+    fd.set("password", data.password);
+    await signUpWithEmail(fd);
+  }
+
+  return (
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-3">
+        {/* 이름 + 성별 */}
+        <div className="flex gap-2">
+          <div className="flex-1 space-y-1">
+            <Label htmlFor="signup-name" className="text-xs">이름</Label>
+            <Input
+              id="signup-name"
+              type="text"
+              placeholder="홍길동"
+              autoComplete="name"
+              className={cn("h-8 text-sm", errors.display_name && "border-destructive")}
+              {...register("display_name")}
+            />
+            <FieldError message={errors.display_name?.message} />
+          </div>
+
+          <div className="w-28 space-y-1">
+            <Label htmlFor="signup-gender" className="text-xs">성별</Label>
+            <select
+              id="signup-gender"
+              className={cn(
+                "flex h-8 w-full rounded-md border border-input bg-background px-2 text-sm shadow-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+                errors.gender && "border-destructive"
+              )}
+              {...register("gender")}
+            >
+              <option value="" disabled>선택</option>
+              <option value="male">남성</option>
+              <option value="female">여성</option>
+              <option value="other">기타</option>
+            </select>
+            <FieldError message={errors.gender?.message} />
+          </div>
+        </div>
+
+        {/* 전화번호 — 숫자만, 최대 11자리 */}
+        <div className="space-y-1">
+          <Label htmlFor="signup-phone" className="text-xs">전화번호</Label>
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field }) => (
+              <Input
+                id="signup-phone"
+                type="tel"
+                inputMode="numeric"
+                placeholder="01012345678"
+                autoComplete="tel"
+                maxLength={11}
+                className={cn("h-8 text-sm", errors.phone && "border-destructive")}
+                {...field}
+                onChange={(e) => {
+                  const digits = e.target.value.replace(/\D/g, "").slice(0, 11);
+                  field.onChange(digits);
+                }}
+              />
+            )}
+          />
+          <FieldError message={errors.phone?.message} />
+        </div>
+
+        {/* 이메일 */}
+        <div className="space-y-1">
+          <Label htmlFor="signup-email" className="text-xs">이메일</Label>
+          <Input
+            id="signup-email"
+            type="email"
+            placeholder="you@example.com"
+            autoComplete="email"
+            className={cn("h-8 text-sm", errors.email && "border-destructive")}
+            {...register("email")}
+          />
+          <FieldError message={errors.email?.message} />
+        </div>
+
+        {/* 비밀번호 */}
+        <div className="space-y-1">
+          <Label htmlFor="signup-password" className="text-xs">비밀번호</Label>
+          <Input
+            id="signup-password"
+            type="password"
+            placeholder="8자 이상"
+            autoComplete="new-password"
+            className={cn("h-8 text-sm", errors.password && "border-destructive")}
+            {...register("password")}
+          />
+          <FieldError message={errors.password?.message} />
+        </div>
+
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "처리 중..." : "회원가입"}
+        </Button>
+      </form>
+
+      <p className="text-center text-[11px] text-muted-foreground">
+        가입하면 CrossPosting 서비스 이용약관에 동의하는 것으로 간주됩니다.
+      </p>
+    </div>
+  );
+}
+
+// ── 메인 모달 ─────────────────────────────────────────────────────────────────
+
 export function AuthModal() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -63,18 +282,12 @@ export function AuthModal() {
   const modalParam = searchParams.get("modal");
   const errorParam = searchParams.get("error");
 
-  // open은 URL에서 직접 파생된다 (state가 아님)
   const open = modalParam === "login" || modalParam === "signup";
 
-  // tab은 로컬 상태. Dialog key={modalParam}으로 modalParam 변경 시 재초기화된다
   const [tab, setTab] = useState<"login" | "signup">(
     modalParam === "signup" ? "signup" : "login"
   );
 
-  /**
-   * 모달이 닫힐 때 호출된다 (Dialog의 onOpenChange 콜백).
-   * URL에서 ?modal, ?error 파라미터를 제거해 모달이 다시 열리지 않도록 한다.
-   */
   function handleOpenChange(next: boolean) {
     if (!next) {
       router.replace("/", { scroll: false });
@@ -85,15 +298,13 @@ export function AuthModal() {
   const isInfo = errorParam ? INFO_ERRORS.has(errorParam) : false;
 
   return (
-    // key={modalParam}으로 login↔signup 전환 시 Dialog를 재마운트해 tab 상태를 초기화한다
     <Dialog key={modalParam ?? "closed"} open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-sm">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader className="items-center gap-2 pb-0">
           <Image src="/brand/logo.svg" alt="CrossPosting" width={28} height={28} />
           <DialogTitle className="text-base">CrossPosting</DialogTitle>
         </DialogHeader>
 
-        {/* ?error= 파라미터가 있을 때만 에러/안내 메시지를 표시한다 */}
         {error && (
           <div
             className={`rounded-md border px-3 py-2 text-xs ${
@@ -112,94 +323,12 @@ export function AuthModal() {
             <TabsTrigger value="signup" className="flex-1">회원가입</TabsTrigger>
           </TabsList>
 
-          {/* 로그인 탭: Google OAuth + 이메일/비밀번호 */}
-          <TabsContent value="login" className="space-y-4 pt-2">
-            {/* form action에 Server Action을 직접 연결한다 */}
-            <form action={signInWithGoogle}>
-              <Button type="submit" variant="outline" className="w-full gap-2.5">
-                <GoogleIcon />
-                Google로 계속하기
-              </Button>
-            </form>
-
-            <div className="relative flex items-center gap-3">
-              <div className="h-px flex-1 bg-border" />
-              <span className="text-[11px] text-muted-foreground">또는</span>
-              <div className="h-px flex-1 bg-border" />
-            </div>
-
-            <form action={signInWithEmail} className="space-y-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="login-email" className="text-xs">이메일</Label>
-                <Input
-                  id="login-email"
-                  name="email"   // Server Action에서 formData.get("email")로 읽는다
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                  className="h-8 text-sm"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="login-password" className="text-xs">비밀번호</Label>
-                <Input
-                  id="login-password"
-                  name="password"  // Server Action에서 formData.get("password")로 읽는다
-                  type="password"
-                  placeholder="••••••••"
-                  required
-                  className="h-8 text-sm"
-                />
-              </div>
-              <Button type="submit" className="w-full">로그인</Button>
-            </form>
+          <TabsContent value="login" className="pt-2">
+            <LoginForm />
           </TabsContent>
 
-          {/* 회원가입 탭: Google OAuth + 이메일/비밀번호 */}
-          <TabsContent value="signup" className="space-y-4 pt-2">
-            <form action={signInWithGoogle}>
-              <Button type="submit" variant="outline" className="w-full gap-2.5">
-                <GoogleIcon />
-                Google로 시작하기
-              </Button>
-            </form>
-
-            <div className="relative flex items-center gap-3">
-              <div className="h-px flex-1 bg-border" />
-              <span className="text-[11px] text-muted-foreground">또는 이메일로 가입</span>
-              <div className="h-px flex-1 bg-border" />
-            </div>
-
-            <form action={signUpWithEmail} className="space-y-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-email" className="text-xs">이메일</Label>
-                <Input
-                  id="signup-email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                  className="h-8 text-sm"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="signup-password" className="text-xs">비밀번호</Label>
-                <Input
-                  id="signup-password"
-                  name="password"
-                  type="password"
-                  placeholder="8자 이상"
-                  minLength={8}  // Supabase 기본 minimum_password_length=6보다 높게 설정
-                  required
-                  className="h-8 text-sm"
-                />
-              </div>
-              <Button type="submit" className="w-full">회원가입</Button>
-            </form>
-
-            <p className="text-center text-[11px] text-muted-foreground">
-              가입하면 CrossPosting 서비스 이용약관에 동의하는 것으로 간주됩니다.
-            </p>
+          <TabsContent value="signup" className="pt-2">
+            <SignupForm />
           </TabsContent>
         </Tabs>
       </DialogContent>
@@ -207,10 +336,6 @@ export function AuthModal() {
   );
 }
 
-/**
- * Google 브랜드 아이콘 SVG 컴포넌트.
- * 공식 Google 브랜드 가이드라인 색상을 사용한다.
- */
 function GoogleIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
