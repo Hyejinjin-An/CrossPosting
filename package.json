@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "types": "supabase gen types typescript --project-id kyqkorjtpccajzjrfrpd > src/types/database.types.ts"
+    "types": "supabase gen types typescript --project-id kyqkorjtpccajzjrfrpd > src/types/database.types.ts",
+    "clean": "node -e \"const{rmSync}=require('fs');['.next','node_modules/.cache'].forEach(d=>{try{rmSync(d,{recursive:true,force:true});console.log('✓ deleted: '+d)}catch(e){}})\"",
+    "dev:fresh": "npm run clean && npm run dev",
+    "build:fresh": "npm run clean && npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
