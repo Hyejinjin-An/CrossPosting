@@ -5,21 +5,25 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { signOut } from "@/app/auth/actions";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 export default function DashboardPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-[hsl(var(--background))]">
-      <header className="sticky top-0 z-50 border-b border-[hsl(var(--border))] bg-[hsl(var(--background))]/95 backdrop-blur-sm">
+    <div className="flex min-h-screen flex-col bg-background">
+      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2.5">
             <Image src="/brand/logo.svg" alt="CrossPosting" width={28} height={28} />
-            <span className="text-[15px] font-bold tracking-tight text-[hsl(var(--foreground))]">
+            <span className="text-[15px] font-bold tracking-tight text-foreground">
               CrossPosting
             </span>
           </Link>
-          <form action={signOut}>
-            <Button type="submit" variant="ghost" size="sm">로그아웃</Button>
-          </form>
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <form action={signOut}>
+              <Button type="submit" variant="ghost" size="sm">로그아웃</Button>
+            </form>
+          </div>
         </div>
       </header>
 
@@ -34,8 +38,8 @@ export default function DashboardPage() {
           <Badge variant="secondary" className="text-xs">MVP 구현 예정</Badge>
         </div>
 
-        <h1 className="mb-2 text-2xl font-bold text-[hsl(var(--foreground))]">대시보드</h1>
-        <p className="mb-8 text-sm text-[hsl(var(--muted-foreground))]">
+        <h1 className="mb-2 text-2xl font-bold text-foreground">대시보드</h1>
+        <p className="mb-8 text-sm text-muted-foreground">
           MVP 기능 구현 후 소셜 계정, 게시물, 초안, 발행 현황을 이 화면에서 관리합니다.
         </p>
 
@@ -44,8 +48,8 @@ export default function DashboardPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(var(--muted))]">
-                    <Link2 className="h-4 w-4 text-[hsl(var(--muted-foreground))]" />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
+                    <Link2 className="h-4 w-4 text-muted-foreground" />
                   </div>
                   <CardTitle className="text-sm">소셜 계정 연결</CardTitle>
                 </div>
@@ -53,7 +57,7 @@ export default function DashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-[hsl(var(--muted-foreground))]">
+              <p className="text-xs text-muted-foreground">
                 Instagram 계정을 OAuth로 연결하고 토큰 상태를 관리합니다.
               </p>
             </CardContent>
@@ -63,8 +67,8 @@ export default function DashboardPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(var(--muted))]">
-                    <ImageIcon className="h-4 w-4 text-[hsl(var(--muted-foreground))]" />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
+                    <ImageIcon className="h-4 w-4 text-muted-foreground" />
                   </div>
                   <CardTitle className="text-sm">게시물 가져오기</CardTitle>
                 </div>
@@ -72,7 +76,7 @@ export default function DashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-[hsl(var(--muted-foreground))]">
+              <p className="text-xs text-muted-foreground">
                 연결된 계정의 최근 게시물을 최대 20개 불러옵니다.
               </p>
             </CardContent>
@@ -82,8 +86,8 @@ export default function DashboardPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(var(--muted))]">
-                    <Send className="h-4 w-4 text-[hsl(var(--muted-foreground))]" />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
+                    <Send className="h-4 w-4 text-muted-foreground" />
                   </div>
                   <CardTitle className="text-sm">초안 생성 및 편집</CardTitle>
                 </div>
@@ -91,7 +95,7 @@ export default function DashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-[hsl(var(--muted-foreground))]">
+              <p className="text-xs text-muted-foreground">
                 원본 기반 채널별 초안을 만들고 본문·해시태그를 수정합니다.
               </p>
             </CardContent>
@@ -101,8 +105,8 @@ export default function DashboardPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[hsl(var(--muted))]">
-                    <BarChart2 className="h-4 w-4 text-[hsl(var(--muted-foreground))]" />
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted">
+                    <BarChart2 className="h-4 w-4 text-muted-foreground" />
                   </div>
                   <CardTitle className="text-sm">발행 상태 추적</CardTitle>
                 </div>
@@ -110,16 +114,16 @@ export default function DashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-xs text-[hsl(var(--muted-foreground))]">
+              <p className="text-xs text-muted-foreground">
                 Instagram 발행 작업과 KakaoStory 수동 게시 패키지 상태를 확인합니다.
               </p>
             </CardContent>
           </Card>
         </div>
 
-        <div className="mt-8 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))]/30 p-5">
-          <p className="mb-3 text-sm font-medium text-[hsl(var(--foreground))]">다음 구현 순서</p>
-          <ol className="space-y-1.5 text-xs text-[hsl(var(--muted-foreground))]">
+        <div className="mt-8 rounded-lg border border-border bg-muted/30 p-5">
+          <p className="mb-3 text-sm font-medium text-foreground">다음 구현 순서</p>
+          <ol className="space-y-1.5 text-xs text-muted-foreground">
             <li>1. ✅ Supabase Auth — Google OAuth 로그인 구현 완료</li>
             <li>2. DB 마이그레이션 및 RLS — profiles, social_accounts, source_posts 등</li>
             <li>3. Instagram OAuth — 계정 연결 및 장기 토큰 저장</li>

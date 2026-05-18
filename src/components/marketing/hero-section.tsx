@@ -10,12 +10,12 @@ export function HeroSection() {
         <Badge variant="secondary" className="mb-4 text-xs font-medium">
           크로스포스팅 워크스페이스
         </Badge>
-        <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-[hsl(var(--foreground))] sm:text-4xl">
+        <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl">
           CrossPosting으로
           <br />
           다시 쓰는 시간을 줄이세요
         </h1>
-        <p className="mb-8 text-base leading-relaxed text-[hsl(var(--muted-foreground))] sm:text-lg">
+        <p className="mb-8 text-base leading-relaxed text-muted-foreground sm:text-lg">
           Instagram 게시물을 가져와 채널별 초안을 만들고, 가능한 곳은 공식 API로 발행하세요.
           제한된 채널은 복사와 다운로드 플로우로 안전하게 마무리합니다.
         </p>
