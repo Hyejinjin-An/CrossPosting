@@ -21,7 +21,7 @@ const NAV_ITEMS = [
   { href: "/dashboard/accounts", label: "계정 연결",   icon: Link2,           available: false },
   { href: "/dashboard/create",   label: "게시물 작성", icon: PenLine,         available: true  },
   { href: "/dashboard/publish",  label: "발행 현황",   icon: BarChart2,       available: false },
-  { href: "/dashboard/settings", label: "설정",        icon: Settings,        available: false },
+  { href: "/dashboard/settings", label: "설정",        icon: Settings,        available: true  },
 ];
 
 interface DashboardSidebarProps {
