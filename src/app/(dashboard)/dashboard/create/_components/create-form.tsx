@@ -115,8 +115,8 @@ export function CreateForm({ userId }: CreateFormProps) {
         return;
       }
 
-      router.push("/dashboard");
-      router.refresh();
+      // 저장 완료 후 Composer 편집 페이지로 이동
+      router.push(`/dashboard/composer/${result.draftSetId}`);
     });
   };
 
