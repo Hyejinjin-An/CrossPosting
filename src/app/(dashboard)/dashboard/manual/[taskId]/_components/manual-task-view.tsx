@@ -62,17 +62,22 @@ export function ManualTaskView({
 
   async function handleCopy() {
     setCopyError(null);
+    // 클립보드 복사 성공 시에만 DB timestamp 기록 — 실패 시 거짓 완료 방지
+    let clipboardOk = false;
     try {
       await navigator.clipboard.writeText(fullText);
+      clipboardOk = true;
     } catch {
       setCopyError("클립보드 접근이 거부되었습니다. 아래 텍스트를 직접 복사해 주세요.");
     }
-    startCopy(async () => {
-      if (!bodyCopiedAt) {
-        const result = await markBodyCopied(taskId);
-        if (result.success) setBodyCopiedAt(new Date().toISOString());
-      }
-    });
+    if (clipboardOk) {
+      startCopy(async () => {
+        if (!bodyCopiedAt) {
+          const result = await markBodyCopied(taskId);
+          if (result.success) setBodyCopiedAt(new Date().toISOString());
+        }
+      });
+    }
   }
 
   function handleDownload(url: string, index: number) {

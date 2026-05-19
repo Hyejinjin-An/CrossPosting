@@ -11,8 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { saveDraft } from "../actions";
-
-const INSTAGRAM_MAX = 2200;
+import { INSTAGRAM_MAX, parseHashtags } from "@/lib/composer";
 
 const schema = z.object({
   body: z
@@ -24,14 +23,6 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-
-/** 해시태그 문자열 → 배열 파싱 (공백/쉼표 구분, # 자동 제거) */
-function parseHashtags(raw: string): string[] {
-  return raw
-    .split(/[\s,]+/)
-    .map((t) => t.replace(/^#/, "").trim())
-    .filter(Boolean);
-}
 
 interface ImagePreview {
   file: File;
