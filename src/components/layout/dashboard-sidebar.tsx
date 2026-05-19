@@ -10,6 +10,7 @@ import {
   Settings,
   Link2,
   LogOut,
+  FileEdit,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
@@ -19,7 +20,8 @@ import { signOut } from "@/app/auth/actions";
 const NAV_ITEMS = [
   { href: "/dashboard",          label: "홈",         icon: LayoutDashboard, available: true },
   { href: "/dashboard/accounts", label: "계정 연결",   icon: Link2,           available: false },
-  { href: "/dashboard/create",   label: "게시물 작성", icon: PenLine,         available: true  },
+  { href: "/dashboard/create",    label: "게시물 작성", icon: PenLine,         available: true  },
+  { href: "/dashboard/composer", label: "초안 관리",   icon: FileEdit,        available: true  },
   { href: "/dashboard/publish",  label: "발행 현황",   icon: BarChart2,       available: false },
   { href: "/dashboard/settings", label: "설정",        icon: Settings,        available: true  },
 ];

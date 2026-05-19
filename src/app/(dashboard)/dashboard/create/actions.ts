@@ -24,7 +24,7 @@ export type SaveDraftResult =
   | { success: true; draftSetId: string }
   | { success: false; error: string };
 
-/** Next.js Server Action — post_draft_sets + post_drafts + media_assets 생성 */
+/** Next.js Server Action — post_draft_sets + post_drafts + media_assets + post_draft_media 생성 */
 export async function saveDraft(input: SaveDraftInput): Promise<SaveDraftResult> {
   const supabase = await createClient();
   const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -38,7 +38,7 @@ export async function saveDraft(input: SaveDraftInput): Promise<SaveDraftResult>
   // 1. post_draft_sets 생성 (source_post_id: null = 직접 작성)
   const { data: draftSet, error: draftSetError } = await supabase
     .from("post_draft_sets")
-    .insert({ user_id: user.id, status: "draft", title })
+    .insert({ user_id: user.id, status: "drafting", title })
     .select("id")
     .single();
 
@@ -47,7 +47,31 @@ export async function saveDraft(input: SaveDraftInput): Promise<SaveDraftResult>
     return { success: false, error: "초안 저장에 실패했습니다." };
   }
 
-  // 2. media_assets 저장 (이미지가 있을 때만)
+  // 2. 선택 채널별 post_drafts 생성
+  let createdDraftIds: string[] = [];
+  if (input.channels.length > 0) {
+    const drafts = input.channels.map((channel) => ({
+      draft_set_id: draftSet.id,
+      user_id: user.id,
+      target_channel: channel,
+      body: input.body,
+      hashtags: input.hashtags,
+      status: "draft",
+    }));
+
+    const { data: createdDrafts, error: draftsError } = await supabase
+      .from("post_drafts")
+      .insert(drafts)
+      .select("id");
+
+    if (draftsError || !createdDrafts) {
+      console.error("[saveDraft] post_drafts insert failed:", draftsError?.message);
+      return { success: false, error: "초안 저장에 실패했습니다." };
+    }
+    createdDraftIds = createdDrafts.map((d) => d.id);
+  }
+
+  // 3. media_assets 저장 후 post_draft_media로 각 초안에 연결
   if (input.storagePaths.length > 0) {
     const mediaRows = input.storagePaths.map((f) => ({
       user_id: user.id,
@@ -57,28 +81,29 @@ export async function saveDraft(input: SaveDraftInput): Promise<SaveDraftResult>
       sort_order: f.sortOrder,
     }));
 
-    const { error: mediaError } = await supabase.from("media_assets").insert(mediaRows);
-    if (mediaError) {
+    const { data: mediaAssets, error: mediaError } = await supabase
+      .from("media_assets")
+      .insert(mediaRows)
+      .select("id, sort_order");
+
+    if (mediaError || !mediaAssets) {
       // 미디어 저장 실패는 경고만 — 초안 자체는 저장 성공으로 처리
-      console.error("[saveDraft] media_assets insert failed:", mediaError.message);
-    }
-  }
+      console.error("[saveDraft] media_assets insert failed:", mediaError?.message);
+    } else if (createdDraftIds.length > 0) {
+      // 각 초안에 media_assets 연결 (post_draft_media)
+      const linkRows = createdDraftIds.flatMap((draftId) =>
+        mediaAssets.map((asset) => ({
+          post_draft_id: draftId,
+          media_asset_id: asset.id,
+          sort_order: asset.sort_order,
+          is_included: true,
+        }))
+      );
 
-  // 3. 선택 채널별 post_drafts 생성
-  const drafts = input.channels.map((channel) => ({
-    draft_set_id: draftSet.id,
-    user_id: user.id,
-    target_channel: channel,
-    body: input.body,
-    hashtags: input.hashtags,
-    status: "draft",
-  }));
-
-  if (drafts.length > 0) {
-    const { error: draftsError } = await supabase.from("post_drafts").insert(drafts);
-    if (draftsError) {
-      console.error("[saveDraft] post_drafts insert failed:", draftsError.message);
-      return { success: false, error: "초안 저장에 실패했습니다." };
+      const { error: linkError } = await supabase.from("post_draft_media").insert(linkRows);
+      if (linkError) {
+        console.error("[saveDraft] post_draft_media insert failed:", linkError.message);
+      }
     }
   }
 
