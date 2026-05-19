@@ -10,6 +10,7 @@
  */
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { type SupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import type { Database } from "@/types/database.types";
 
@@ -20,8 +21,12 @@ import type { Database } from "@/types/database.types";
  * 세션 쿠키를 읽고 쓸 수 있으며, RLS 정책은 현재 로그인한 사용자 기준으로 적용된다.
  *
  * @returns 타입이 적용된 SupabaseClient (Database 제네릭 포함)
+ *
+ * 반환 타입을 SupabaseClient<Database>로 캐스팅한다.
+ * @supabase/ssr@0.6.1과 @supabase/supabase-js@2.105.1 사이 제네릭 시그니처 불일치로
+ * insert/upsert 호출 시 Insert 타입이 never로 추론되는 문제를 방지한다.
  */
-export async function createClient() {
+export async function createClient(): Promise<SupabaseClient<Database>> {
   const cookieStore = await cookies();
 
   return createServerClient<Database>(
@@ -49,5 +54,5 @@ export async function createClient() {
         },
       },
     },
-  );
+  ) as unknown as SupabaseClient<Database>;
 }

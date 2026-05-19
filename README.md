@@ -1,41 +1,52 @@
 # CrossPosting
 
-Instagram과 KakaoStory에 작성한 게시물의 사진, 문구, 해시태그, 링크를 다른 SNS 채널에 재사용할 수 있도록 돕는 크로스포스팅 워크스페이스입니다.
+한 번 만든 SNS 게시물을 여러 채널에 맞게 재활용하고, 발행까지 돕는 크로스포스팅 워크스페이스입니다.
 
-> 핵심 원칙: 플랫폼 약관을 우회하지 않는다. 공식 API로 가능한 자동 발행은 자동화하고, 공식 API가 불명확하거나 제한적인 채널은 사용자가 검수한 뒤 수동 게시할 수 있는 보조 플로우로 제공한다.
+CrossPosting은 소상공인, 크리에이터, 브랜드 운영자가 반복 게시에 쓰는 시간을 줄이고, 채널별 운영 실수를 낮추는 콘텐츠 운영 도구를 목표로 합니다.
 
-## Overview
+## Why Now
 
-CrossPosting은 하나의 원본 게시물을 기반으로 채널별 게시 초안을 만들고, 가능한 채널에는 공식 API로 발행하며, 제한된 채널에는 복사/다운로드/체크리스트 기반의 수동 게시 경험을 제공합니다.
+Instagram, KakaoStory, 블로그, 커뮤니티 등 SNS 채널은 계속 늘어나지만 운영자는 같은 사진과 문구를 매번 다시 정리해야 합니다.
 
-현재 MVP 방향은 다음과 같습니다.
+채널마다 이미지 규격, 글자 수, 해시태그 문화, 링크 처리, 발행 방식이 달라 단순 복사로는 끝나지 않습니다. 이 반복 업무는 매출을 직접 만들지 않지만, 꾸준히 시간을 잡아먹는 운영 비용입니다.
 
-- Instagram: 공식 API 기반 가져오기 및 발행 플로우
-- KakaoStory: 수동 게시 보조 플로우
-- Supabase: Auth, Postgres, Storage 기반 사용자 데이터 관리
-- Next.js: App Router 기반 웹 애플리케이션
+## Solution
 
-상세 제품 배경과 MVP 범위는 [Product Overview](docs/PRODUCT_OVERVIEW.md)를 참고하세요.
+CrossPosting은 하나의 원본 게시물을 가져와 채널별 게시 초안으로 변환합니다.
 
-## 구현 현황
+- 공식 API가 가능한 채널은 자동 발행을 지원합니다.
+- 공식 API가 제한적인 채널은 복사, 이미지 다운로드, 체크리스트 기반 수동 게시를 지원합니다.
+- 모든 게시 초안, 발행 상태, 실패 사유, 재시도 이력을 한 곳에서 관리합니다.
 
-| 영역 | 상태 |
-|---|---|
-| 랜딩 페이지 (`/`) | 완료 |
-| Auth 콜백 (`/auth/callback`) | 완료 |
-| 로그인 페이지 (`/auth/login`) | Google OAuth 구현 완료 |
-| 세션 보호 프록시 (`src/proxy.ts`) | 완료 |
-| 대시보드 (`/dashboard`) | Placeholder (로그아웃 버튼 포함) |
-| Supabase Auth — Google OAuth | 완료 (Supabase Dashboard에서 Google Provider 활성화 필요) |
-| Supabase Auth — 이메일 로그인 | 미구현 (Issue #7 범위 밖) |
-| DB 마이그레이션 / RLS | 미구현 |
-| Instagram OAuth | 미구현 |
-| Source Import | 미구현 |
-| Composer | 미구현 |
-| KakaoStory 수동 보조 | 미구현 |
-| Publish Jobs / 상태 추적 | 미구현 |
+핵심은 무리한 자동화가 아니라, 플랫폼 정책을 지키면서 반복 게시의 마찰을 줄이는 것입니다.
 
-다음 구현 순서와 세부 가이드는 [Claude Handoff](docs/CLAUDE_HANDOFF.md)를 참고하세요.
+## Business Value
+
+- 반복 게시 시간을 줄여 소상공인과 크리에이터의 운영 비용을 낮춥니다.
+- Instagram, KakaoStory처럼 사용 빈도는 높지만 발행 방식이 다른 채널을 하나의 워크플로우로 묶습니다.
+- 플랫폼 약관을 우회하지 않는 자동화/수동 보조 모델로 장기 운영 가능성을 확보합니다.
+- 향후 블로그, 커뮤니티, 쇼핑몰 공지, 문자/알림톡 등으로 확장 가능한 콘텐츠 운영 허브가 될 수 있습니다.
+
+## Target Users
+
+- 신상품, 이벤트, 공지를 여러 SNS에 반복 게시하는 로컬 매장
+- 촬영물과 캡션을 여러 채널에 맞게 재활용하는 1인 크리에이터
+- 게시 이력, 실패 여부, 재시도를 한 화면에서 관리해야 하는 마케터
+
+## MVP Scope
+
+- Instagram 게시물 가져오기
+- Instagram 공식 API 기반 발행 플로우
+- KakaoStory 수동 게시 보조 플로우
+- 원본 게시물 기반 채널별 초안 생성
+- 이미지 저장, 캡션 편집, 게시 전 검수
+- 발행 이력, 실패 로그, 재시도 관리
+
+## Product Principle
+
+CrossPosting은 플랫폼 약관을 우회하지 않습니다.
+
+자동 발행이 가능한 채널은 공식 API를 사용하고, 공식 API가 불명확하거나 제한적인 채널은 사용자가 최종 검수 후 직접 게시할 수 있도록 돕습니다.
 
 ## Tech Stack
 
@@ -43,8 +54,6 @@ CrossPosting은 하나의 원본 게시물을 기반으로 채널별 게시 초�
 - React, TypeScript
 - Tailwind CSS, shadcn/ui
 - Supabase Auth, Postgres, Storage
-- Zod, React Hook Form, TanStack Query
-- Vitest, React Testing Library, Playwright 예정
 
 ## Getting Started
 
@@ -53,51 +62,13 @@ npm install
 npm run dev
 ```
 
-개발 서버 실행 후 브라우저에서 `http://localhost:3000`을 엽니다.
+개발 서버 실행 후 `http://localhost:3000`을 엽니다.
 
-## Scripts
-
-```bash
-npm run dev
-npm run lint
-npm run build
-npm run format
-npm run types   # Supabase 스키마 → TypeScript 타입 재생성
-```
-
-## Environment
-
-`.env.example`을 복사해 `.env.local`을 만들고 필요한 값을 채웁니다.
-
-```bash
-cp .env.example .env.local
-```
-
-Windows PowerShell:
+환경 변수는 `.env.example`을 복사해 `.env.local`에 설정합니다.
 
 ```powershell
 Copy-Item .env.example .env.local
 ```
-
-필요한 환경 변수:
-
-```bash
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-INSTAGRAM_APP_ID=
-INSTAGRAM_APP_SECRET=
-INSTAGRAM_REDIRECT_URI=
-SENTRY_DSN=
-```
-
-## Branch Workflow
-
-- `main`: 운영/릴리즈 브랜치
-- `dev`: 개발 통합 브랜치
-- `feature/issue-번호-설명`: 기능 브랜치
-
-기능 개발은 최신 `dev`에서 브랜치를 만들고, PR의 base branch는 `dev`로 설정합니다. 릴리즈 시점에만 `dev`에서 `main`으로 PR을 올립니다.
 
 ## Documentation
 
@@ -105,8 +76,4 @@ SENTRY_DSN=
 - [Product Requirements](docs/PRD.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Database](docs/DATABASE.md)
-- [Risk Register](docs/RISK_REGISTER.md)
 - [Roadmap](docs/ROADMAP.md)
-- [Developer Kickoff](docs/DEVELOPER_KICKOFF.md)
-- [Claude Handoff](docs/CLAUDE_HANDOFF.md)
-- [Day 1 Initial Setup](docs/DAY1_INITIAL_SETUP.md)
