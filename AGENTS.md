@@ -27,6 +27,8 @@ If the task involves both roles, read both files. These role rules are part of t
   - `docs/CLAUDE_HANDOFF.md`
 - Durable learning docs:
   - `docs/solutions/` stores Compound Engineering notes from completed execution-review cycles.
+- Service completion checklist:
+  - `docs/SERVICE_CHECKLIST.md` tracks all implemented and pending features, security requirements, and recurring anti-patterns. Read before starting work; update checkboxes and the daily log after completing work.
 
 ## Commands
 
@@ -93,6 +95,7 @@ const displayName = profile?.display_name ?? user?.user_metadata?.full_name ?? u
 - Start feature work from the latest `dev`.
 - Keep changes scoped to the GitHub issue.
 - Link PRs to their issue with `Closes #<issue-number>`.
+- **Docs-only changes** (`docs/`, `CLAUDE.md`, `AGENTS.md` 등 문서 파일만 수정하는 경우): 이슈·PR 없이 `dev`에 직접 커밋·푸시한다. 코드 변경이 단 한 줄이라도 포함되면 이 예외를 적용하지 않는다.
 - Check relevant `docs/solutions/` learnings before repeating similar implementation or review work.
 - Do not implement platform-policy workarounds or automation that bypasses official platform terms.
 - Treat KakaoStory as manual posting assistance only unless official API support is explicitly confirmed.
