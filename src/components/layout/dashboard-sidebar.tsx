@@ -80,7 +80,7 @@ export function DashboardSidebar({ displayName, email }: DashboardSidebarProps) 
         </ul>
       </nav>
 
-      {/* 하단: 사용자 정보 + 테마 토글 + 로그아웃 */}
+      {/* 하단: 사용자 정보 + 테마 토글 + 로그아웃 + 법적 링크 */}
       <div className="border-t border-border p-3 space-y-2">
         <div className="px-1">
           <p className="truncate text-xs font-medium text-foreground">{displayName}</p>
@@ -99,6 +99,16 @@ export function DashboardSidebar({ displayName, email }: DashboardSidebarProps) 
               로그아웃
             </Button>
           </form>
+        </div>
+        {/* 개인정보처리방침 / 이용약관 링크 */}
+        <div className="flex gap-2 px-1">
+          <Link href="/privacy" className="text-[10px] text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+            개인정보처리방침
+          </Link>
+          <span className="text-[10px] text-muted-foreground/40">·</span>
+          <Link href="/terms" className="text-[10px] text-muted-foreground/60 hover:text-muted-foreground transition-colors">
+            이용약관
+          </Link>
         </div>
       </div>
     </aside>

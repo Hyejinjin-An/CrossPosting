@@ -6,7 +6,7 @@
 
 - Product: CrossPosting
 - Stack: Next.js 16.2.4 (Turbopack), React 19, TypeScript, Tailwind CSS v4, Supabase, radix-ui
-- Current milestone: **대시보드 레이아웃 완료 — 토큰 무관 기능 구현 중**
+- Current milestone: **법적 요건 페이지 완료 — Instagram OAuth Owner 준비 단계**
 - PR #18 (`feature/ui-theme-signup-fields`) ✅ dev merge 완료
 - PR #21 (`feature/issue-21-dashboard-layout`) OPEN → dev에 merge 필요
 
@@ -23,7 +23,10 @@
 | DB 스키마 / RLS (Issue #9) | ✅ 완료 | profiles, social_accounts, source_posts, post_drafts, publish_jobs 등 |
 | 대시보드 UI | ✅ 완료 | 환영 배너, 통계 카드, hover 효과, placeholder |
 | 주황 테마 + 다크모드 토글 | ✅ 완료 | Tailwind v4 @theme inline, next-themes |
-| Instagram OAuth (Issue #11) | ❌ 미구현 | Meta Developer 앱 설정 Owner 선행 필요 |
+| 개인정보처리방침 (`/privacy`) | ✅ 완료 | Issue #27 — 정적 Server Component |
+| 서비스 이용약관 (`/terms`) | ✅ 완료 | Issue #27 — 정적 Server Component |
+| 대시보드 사이드바 법적 링크 | ✅ 완료 | Issue #27 — 사이드바 하단 링크 추가 |
+| Instagram OAuth (Issue #11) | ❌ 미구현 | Meta Developer 앱 설정 Owner 선행 필요. /privacy·/terms URL 제공 가능 상태 |
 | Source Import (Issue #12) | ❌ 미구현 | #11 완료 후 |
 | Composer (Issue #13) | ❌ 미구현 | #12 완료 후 |
 | KakaoStory 수동 보조 (Issue #14) | ❌ 미구현 | #13 완료 후 |
