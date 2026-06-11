@@ -148,6 +148,10 @@ KakaoStory  Publish Jobs  Kakao 계정 연결
 
 ### Issue #20 — Kakao 계정 연결 및 KakaoStory → Instagram 크로스포스팅 (신규)
 
+> **⚠️ 구현 불가 확정 (2026-06-11)**: KakaoStory 공식 API가 2023-11-15에 종료되어
+> `story_read_timeline` 권한과 `/v1/api/story/mystories` 호출이 모두 불가능하다.
+> 아래 계획은 폐기 대상이며 이슈 재정의가 필요하다 (SERVICE_CHECKLIST §8 참조).
+
 **Owner 선행 작업 필요:**
 - Kakao Developers에서 앱 등록
 - `story_read_timeline` 권한 신청 (비즈니스 앱 심사 필요)

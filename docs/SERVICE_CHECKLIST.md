@@ -24,6 +24,7 @@
 |---|:---:|:---:|:---:|---|
 | 2026-05-22 | 54 | 210 | 26% | 초기 현황 기록 |
 | 2026-05-26 | 57 | 210 | 27% | Issue #27 — /privacy·/terms 정적 페이지 + 사이드바 링크 |
+| 2026-06-11 | 61 | 201 | 30% | crossposting-dev 하네스 스킬 도입, KakaoStory API 종료 확정 → §8 자동 발행 항목 9개 폐기 |
 
 ---
 
@@ -269,21 +270,24 @@
 
 ## 8. KakaoStory 연동
 
-> KakaoStory API 신규 심사 가능 여부를 먼저 확인할 것 (2023년 이후 변경됨)
+> **❌ 확정 (2026-06-11): KakaoStory 공식 API는 2023-11-15에 제공 종료** (스토리 쓰기·조회·이미지 업로드 전체, 신규 심사 불가).
+> 출처: https://devtalk.kakao.com/t/api-notice-end-of-support-for-the-kakaostory-api/129857
+> 따라서 KakaoStory 자동 발행은 **영구 구현 불가**이며, 수동 게시 보조(§5-6, 완료)가 최종 정책이다.
+> 아래 항목은 폐기한다 — 이 섹션의 작업을 집어들지 말 것. Kakao OAuth가 다른 용도(로그인 등)로 필요해지면 별도 이슈로 재정의한다.
 
-### 8-1. Owner 준비 항목 (Issue #20, 선택)
-- [ ] KakaoStory API 신규 앱 심사 가능 여부 공식 확인
-- [ ] Kakao Developers 앱 생성 (developers.kakao.com)
-- [ ] 비즈 앱 전환 신청 (사업자 정보 필요)
-- [ ] `story.post.write` 권한 심사 제출 — 개인정보처리방침 URL 필수
-- [ ] Redirect URI 등록: `https://{배포 도메인}/api/auth/kakao/callback`
-- [ ] `KAKAO_REST_API_KEY` / `KAKAO_CLIENT_SECRET` 발급 → Claude에게 전달
+### 8-1. Owner 준비 항목 (폐기)
+- [x] KakaoStory API 신규 앱 심사 가능 여부 공식 확인 — **결과: 불가 (API 종료)**
+- ~~Kakao Developers 앱 생성~~ (폐기)
+- ~~비즈 앱 전환 신청~~ (폐기)
+- ~~`story.post.write` 권한 심사 제출~~ (폐기 — 권한 자체가 소멸)
+- ~~Redirect URI 등록~~ (폐기)
+- ~~`KAKAO_REST_API_KEY` / `KAKAO_CLIENT_SECRET` 발급~~ (폐기)
 
-### 8-2. Issue #20 — Kakao OAuth + KakaoStory 자동 발행 구현
-- [ ] Kakao OAuth 인증 URL 생성 (`/api/auth/kakao`)
-- [ ] 콜백 처리 + `social_accounts` 토큰 저장
-- [ ] KakaoStory 게시물 작성 API 호출 (`/v1/api/story/post/photo`)
-- [ ] 수동 보조 → 자동 발행으로 분기 처리
+### 8-2. Issue #20 — Kakao OAuth + KakaoStory 자동 발행 구현 (폐기 — 이슈 재정의 필요)
+- ~~Kakao OAuth 인증 URL 생성~~ (폐기)
+- ~~콜백 처리 + `social_accounts` 토큰 저장~~ (폐기)
+- ~~KakaoStory 게시물 작성 API 호출 (`/v1/api/story/post/photo`)~~ (폐기 — API 종료)
+- ~~수동 보조 → 자동 발행으로 분기 처리~~ (폐기)
 
 ---
 
@@ -403,4 +407,4 @@
 
 ---
 
-*마지막 업데이트: 2026-05-26*
+*마지막 업데이트: 2026-06-11*
