@@ -29,6 +29,8 @@ If the task involves both roles, read both files. These role rules are part of t
   - `docs/solutions/` stores Compound Engineering notes from completed execution-review cycles.
 - Service completion checklist:
   - `docs/SERVICE_CHECKLIST.md` tracks all implemented and pending features, security requirements, and recurring anti-patterns. Read before starting work; update checkboxes and the daily log after completing work.
+- Development harness skill:
+  - `.claude/skills/crossposting-dev/SKILL.md` defines the quality priority framework (security → content fidelity → server load → client load → UX/UI consistency → automation readiness), platform constraint rules, and dark/light theme rules. Apply it to all `src/` implementation and review work.
 
 ## Commands
 

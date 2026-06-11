@@ -169,6 +169,17 @@ KakaoStory  Publish Jobs  Kakao 계정 연결
 
 ---
 
+## 개발 하네스 스킬 (2026-06-11 도입)
+
+`.claude/skills/crossposting-dev/SKILL.md` — 모든 `src/` 구현·리뷰 작업에 적용되는 품질 하네스.
+
+- 우선순위 프레임워크: 보안 → 콘텐츠 충실도 → 서버 부하 → 클라이언트 부하 → UX/UI 일관성(다크/라이트) → 자동화 친화성
+- 플랫폼 제약 정본: `.claude/skills/crossposting-dev/references/platform-constraints.md` (출처 URL·확인일 포함)
+- 조사로 확정된 사실 (2026-06-11):
+  - **KakaoStory 공식 API 2023-11-15 종료** → 자동 발행 영구 불가, 수동 보조가 최종 정책 (SERVICE_CHECKLIST §8-1 "신규 심사 가능 여부"는 사실상 "불가" 확정)
+  - **Instagram API 발행 quota는 계정당 24h 100건** (과거 자료의 25건은 구버전), 캐러셀 최대 10장 → 20장 게시물은 2개 분할 + 사용자 선택 UI 필요
+  - **Naver Band 공식 Open API 존재** (글쓰기 지원) — 사진 첨부 범위·quota는 구현 착수 전 확인 필요
+
 ## 주요 해결된 이슈 & 참고 사항
 
 **Supabase 이메일 차단**: 로컬파트에 "test" 포함 이메일 차단됨 (`email_address_invalid`). 개발 시 "Enable email confirmations" 비활성화 권장. → `docs/solutions/supabase-email-signup-blocked.md`
